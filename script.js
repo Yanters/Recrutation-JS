@@ -1,5 +1,6 @@
 let sortType = 0,
-  background = 0;
+  backgroundActivated = 0;
+let ActiveBackroundIDs = [];
 const students = [
   {
     name: "Martin",
@@ -63,12 +64,32 @@ function formatStudents() {
     }).length;
     user["lectures"] = count;
   });
-  console.log(students);
 }
 
 function changeBG(id) {
-  let p = id;
-  p.style.color = "red";
+  const box = document.getElementById(id);
+  if (ActiveBackroundIDs.length == 0) {
+    if (box.style.backgroundColor == "gray") {
+      box.style.backgroundColor = "#222831";
+    } else {
+      box.style.backgroundColor = "gray";
+      ActiveBackroundIDs.push(id);
+    }
+  } else {
+    // Change back changed BG
+    // Other way to do it is store highlighted boxes
+    ActiveBackroundIDs.forEach((element) => {
+      if (element != id)
+        document.getElementById(element).style.backgroundColor = "#222831";
+    });
+    ActiveBackroundIDs = [];
+    if (box.style.backgroundColor == "gray") {
+      box.style.backgroundColor = "#222831";
+    } else {
+      box.style.backgroundColor = "gray";
+      ActiveBackroundIDs.push(id);
+    }
+  }
 }
 
 function displayPeopleList() {
@@ -86,8 +107,8 @@ function displayPeopleList() {
     tab += `
     ${
       user.avarage >= 5
-        ? '<div class="card greenBorder" onclick="changeBG(this)">'
-        : '<div class="card redBorder" onclick="changeBG(this)">'
+        ? `<div id=${index} class="card grayBorder" onclick="changeBG(this.id)">`
+        : `<div id=${index} class="card redBorder" onclick="changeBG(this.id)">`
     }
        <p class="card__name">${user.name} ${user.lastName}</p>
        <p class="card__info">Lectures: ${user.lectures}</p>
