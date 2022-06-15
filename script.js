@@ -76,8 +76,6 @@ function changeBG(id) {
       ActiveBackroundIDs.push(id);
     }
   } else {
-    // Change back changed BG
-    // Other way to do it is store highlighted boxes
     ActiveBackroundIDs.forEach((element) => {
       if (element != id)
         document.getElementById(element).style.backgroundColor = "#222831";
@@ -107,8 +105,8 @@ function displayPeopleList() {
     tab += `
     ${
       user.avarage >= 5
-        ? `<div id=${index} class="card grayBorder" onclick="changeBG(this.id)">`
-        : `<div id=${index} class="card redBorder" onclick="changeBG(this.id)">`
+        ? `<div id="${user.name}_${user.lastName}" class="card grayBorder" onclick="changeBG(this.id)">`
+        : `<div id="${user.name}_${user.lastName}" class="card redBorder" onclick="changeBG(this.id)">`
     }
        <p class="card__name">${user.name} ${user.lastName}</p>
        <p class="card__info">Lectures: ${user.lectures}</p>
@@ -116,4 +114,8 @@ function displayPeopleList() {
      </div>`;
   });
   if (people.length != 0) document.querySelector(".container").innerHTML = tab;
+  // Color selected field
+  ActiveBackroundIDs.forEach((element) => {
+    document.getElementById(element).style.backgroundColor = "gray";
+  });
 }
