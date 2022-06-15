@@ -1,4 +1,5 @@
-let sortType = 0;
+let sortType = 0,
+  background = 0;
 const students = [
   {
     name: "Martin",
@@ -33,53 +34,6 @@ const students = [
   },
 ];
 
-// function show(data) {
-//   let {
-//     name: { first },
-//     name: { last },
-//     picture: { large: pictureURL },
-//     registered: { date: registerDate },
-//     nat: nationality,
-//   } = data;
-
-//   if (showAdresses) {
-//     var {
-//       location: { country },
-//       location: { city },
-//       location: {
-//         street: { name: streetName },
-//       },
-//       location: {
-//         street: { number: streetNumber },
-//       },
-//     } = data;
-//   }
-
-//   let tab = `
-//          <div class="card">
-//          <img src="${pictureURL}" alt="Person" class="card__image""/>
-//          <p class="card__name">${first} ${last}</p>
-//          <p class="card__info">🗺️: ${nationality}</p>
-//          <p class="card__info">📅: ${formatDate(registerDate)}</p>
-//            ${
-//              showAdresses
-//                ? '<p class="card__info" style="margin: 10px 20px; text-align: center">📍: ' +
-//                  country +
-//                  ", " +
-//                  city +
-//                  ", " +
-//                  streetName +
-//                  " " +
-//                  streetNumber +
-//                  "</p>"
-//                : ""
-//            }
-
-//          `;
-
-//   document.querySelector("#MainCard").innerHTML = tab;
-// }
-
 function changeState(clickedId) {
   var checkBox = document.getElementById(clickedId);
   if (checkBox.checked == true) {
@@ -112,6 +66,11 @@ function formatStudents() {
   console.log(students);
 }
 
+function changeBG(id) {
+  let p = id;
+  p.style.color = "red";
+}
+
 function displayPeopleList() {
   var people = [...students];
   let tab = "";
@@ -125,7 +84,11 @@ function displayPeopleList() {
 
   people.forEach(function (user, index) {
     tab += `
-     <div class="card">
+    ${
+      user.avarage >= 5
+        ? '<div class="card greenBorder" onclick="changeBG(this)">'
+        : '<div class="card redBorder" onclick="changeBG(this)">'
+    }
        <p class="card__name">${user.name} ${user.lastName}</p>
        <p class="card__info">Lectures: ${user.lectures}</p>
        <p class="card__info">Average: ${user.avarage}</p>
